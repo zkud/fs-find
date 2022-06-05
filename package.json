@@ -1,0 +1,25 @@
+{
+  "name": "fs-find",
+  "version": "1.0.0",
+  "description": "Flexible search of file content",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "fs",
+    "search",
+    "utility"
+  ],
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-google": "^0.14.0",
+    "jest": "^28.1.0"
+  },
+  "scripts": {
+    "lint": "npx eslint ./",
+    "test": "jest --coverage"
+  },
+  "author": "zkud",
+  "license": "MIT"
+}

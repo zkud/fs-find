@@ -1,0 +1,2 @@
+# Delcare all *.js files will have the same line ending style
+*.js text eol=lf
