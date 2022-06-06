@@ -6,6 +6,15 @@ const Entry = require('./Entry');
  * FS Wrapper
  */
 class FileSystem {
+  #contentsCache;
+
+  /**
+   * Creates a new FS instance
+   */
+  constructor() {
+    this.#contentsCache = new Map();
+  }
+
   /**
    * @param {string} path
    * @return {Promise<Array<Entry>>}
@@ -35,10 +44,16 @@ class FileSystem {
    * @return {Promise<string>} UTF-8 encoded file's content
    */
   async readFile(path) {
+    if (this.#contentsCache.has(path)) {
+      return this.#contentsCache.get(path);
+    }
+
     const content = await fs.readFile(
         path,
         {encoding: 'utf8'},
     );
+    this.#contentsCache.set(path, content);
+
     return content;
   }
 }

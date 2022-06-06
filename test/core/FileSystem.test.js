@@ -1,4 +1,5 @@
 const {FileSystem, Entry} = require('../..').core;
+const fs = require('fs').promises;
 
 jest.mock('fs', () => ({
   promises: {
@@ -13,20 +14,34 @@ jest.mock('fs', () => ({
         },
       },
     ],
-    readFile: () => 'content',
+    readFile: jest.fn(() => 'content'),
   },
 }));
 
 describe('FileSystem tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('On getDirectoryEntries it gets entries', async () => {
-    const fs = new FileSystem();
-    const entries = await fs.getDirectoryEntries('./test/');
+    const system = new FileSystem();
+    const entries = await system.getDirectoryEntries('./test/');
     expect(entries).toStrictEqual([new Entry('./test/file.js', true)]);
   });
 
   test('On readFile it returns file\'s content', async () => {
-    const fs = new FileSystem();
-    const result = await fs.readFile('./test.js');
+    const system = new FileSystem();
+    const result = await system.readFile('./test.js');
+    expect(result).toBe('content');
+  });
+
+  test('On second readFile it uses cache', async () => {
+    const system = new FileSystem();
+
+    await system.readFile('./test.js');
+    const result = await system.readFile('./test.js');
+
+    expect(fs.readFile).toBeCalledTimes(1);
     expect(result).toBe('content');
   });
 });
