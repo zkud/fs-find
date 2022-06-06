@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Flexible search of file content",
   "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
   "keywords": [
     "fs",
     "search",

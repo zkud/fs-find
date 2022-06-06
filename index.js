@@ -1,11 +1,5 @@
-const Query = require('./src/Query');
-const FSSearcher = require('./src/FSSearcher');
-const FileSystem = require('./src/FileSystem');
-const SearchError = require('./src/SearchError');
+const {core} = require('./src/');
 
 module.exports = {
-  Query,
-  FSSearcher,
-  FileSystem,
-  SearchError,
+  core,
 };

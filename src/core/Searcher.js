@@ -2,11 +2,13 @@
 const Query = require('./Query');
 const FileSystem = require('./FileSystem');
 const SearchError = require('./SearchError');
+// eslint-disable-next-line no-unused-vars
+const Entry = require('./Entry');
 
 /**
  * Searches in the File System with query
  */
-class FSSearcher {
+class Searcher {
   #fs;
 
   /**
@@ -17,7 +19,12 @@ class FSSearcher {
   }
 
   /**
-   * @param {Query} query
+   * Search for the provided Query
+   * @template [T=object]
+   * @template [R=object]
+   * @param {Query<T, R>} query
+   * @return {Promise<T|R>}
+   * @throws {SearchError}
    */
   async search(query) {
     this.#checkQuery(query);
@@ -33,7 +40,10 @@ class FSSearcher {
   }
 
   /**
-   * @param {Query} query
+   * @template [T=object]
+   * @template [R=object]
+   * @param {Query<T, R>} query
+   * @throws {SearchError}
    */
   #checkQuery(query) {
     if (!query || typeof query.isValid !== 'function' || !query.isValid()) {
@@ -43,8 +53,10 @@ class FSSearcher {
 
   /**
    * @param {string} path
-   * @param {Query} query
-   * @return {Promise<Array>}
+   * @template [T=object]
+   * @template [R=object]
+   * @param {Query<T, R>} query
+   * @return {Promise<Array<T>>}
    */
   async #searchInDirectory(path, query) {
     const entries = await this.#fs.getDirectoryEntries(path);
@@ -59,23 +71,30 @@ class FSSearcher {
   }
 
   /**
-   * @param {Promise<Array<*>>} entries
-   * @param {Query} query
+   * @param {Array<Entry>} entries
+   * @template [T=object]
+   * @template [R=object]
+   * @param {Query<T, R>} query
+   * @return {Promise<Array<T>>}
    */
   async #searchInSubDirectories(entries, query) {
     entries = entries
-        .filter((entry) => entry.isDirectory())
+        .filter((entry) => entry.isDirectory)
         .map((entry) => this.#searchInDirectory(entry.path, query));
-    return Promise.all(entries);
+    entries = await Promise.all(entries);
+    return entries.flat(1);
   }
 
   /**
-   * @param {Promise<Array<*>>} entries
-   * @param {Query} query
+   * @param {Array<Entry>} entries
+   * @template [T=object]
+   * @template [R=object]
+   * @param {Query<T, R>} query
+   * @return {Promise<Array<T>>}
    */
   async #searchInFiles(entries, query) {
     entries = entries
-        .filter((entry) => entry.isFile())
+        .filter((entry) => entry.isFile)
         .filter((entry) => query.filterFunction(entry))
         .map((entry) => this.#searchInFile(entry.path, query));
     return Promise.all(entries);
@@ -83,7 +102,10 @@ class FSSearcher {
 
   /**
    * @param {string} path
-   * @param {Query} query
+   * @template [T=object]
+   * @template [R=object]
+   * @param {Query<T, R>} query
+   * @return {Promise<Array<T>>}
    */
   async #searchInFile(path, {mapFunction}) {
     const content = await this.#fs.readFile(path);
@@ -91,9 +113,11 @@ class FSSearcher {
   }
 
   /**
-   * @param {*} results
-   * @param {Query} query
-   * @return {*}
+   * @param {Array<T>} results
+   * @template [T=object]
+   * @template [R=object]
+   * @param {Query<T, R>} query
+   * @return {R}
    */
   #optionalyReduce(results, query) {
     if (query.requiresReduce()) {
@@ -107,4 +131,4 @@ class FSSearcher {
   }
 }
 
-module.exports = FSSearcher;
+module.exports = Searcher;

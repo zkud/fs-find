@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
+const Entry = require('./Entry');
 
 /**
  * FS Wrapper
@@ -7,7 +8,7 @@ const path = require('path');
 class FileSystem {
   /**
    * @param {string} path
-   * @return {fs.Dirent}
+   * @return {Promise<Array<Entry>>}
    */
   async getDirectoryEntries(path) {
     const entries = await fs.readdir(
@@ -15,22 +16,23 @@ class FileSystem {
         {withFileTypes: true},
     );
     return entries
-        .map((entry) => this.#addPath(path, entry));
+        .filter((entry) => entry.isDirectory() || entry.isFile())
+        .map((entry) => this.#wrapIntoEntry(path, entry));
   }
 
   /**
    * @param {string} root
    * @param {fs.Dirent} entry
-   * @return {fs.Dirent}
+   * @return {Entry}
    */
-  #addPath(root, entry) {
-    entry.path = path.resolve(root, entry.name);
-    return entry;
+  #wrapIntoEntry(root, entry) {
+    const entryPath = path.resolve(root, entry.name);
+    return new Entry(entryPath, entry.isFile());
   }
 
   /**
    * @param {string} path
-   * @return {string}
+   * @return {Promise<string>} UTF-8 encoded file's content
    */
   async readFile(path) {
     const content = await fs.readFile(

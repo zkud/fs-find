@@ -1,5 +1,10 @@
+// eslint-disable-next-line no-unused-vars
+const Entry = require('./Entry');
+
 /**
  * Search Query in the File System
+ * @template [T=object]
+ * @template [R=object]
  */
 class Query {
   #roots;
@@ -18,8 +23,9 @@ class Query {
   }
 
   /**
+   * Provides a search source
    * @param {string} path
-   * @return {Query}
+   * @return {Query<T, R>}
    */
   from(path) {
     if (Array.isArray(path)) {
@@ -31,8 +37,9 @@ class Query {
   }
 
   /**
-   * @param {fun} fun
-   * @return {Query}
+   * Provides a filter criteria for files
+   * @param {function(Entry): bool} fun
+   * @return {Query<T, R>}
    */
   filterBy(fun) {
     this.#filterFunction = fun;
@@ -40,8 +47,9 @@ class Query {
   }
 
   /**
-   * @param {function} fun
-   * @return {Query}
+   * Provides a function to apply to each file
+   * @param {function(string): T} fun
+   * @return {Query<T, R>}
    */
   mapAs(fun) {
     this.#mapFunction = fun;
@@ -49,9 +57,10 @@ class Query {
   }
 
   /**
-   * @param {function} fun
-   * @param {T} accumulator
-   * @return {Query}
+   * Provide a function to reduce all search results into a single value
+   * @param {function(R, T): R} fun
+   * @param {R} accumulator
+   * @return {Query<T, R>}
    */
   reduceAs(fun, accumulator) {
     this.#reduceFunction = fun;
@@ -67,28 +76,28 @@ class Query {
   }
 
   /**
-   * @return {function}
+   * @return {function(Entry): bool}
    */
   get filterFunction() {
     return this.#filterFunction;
   }
 
   /**
-   * @return {function}
+   * @return {function(string): T}
    */
   get mapFunction() {
     return this.#mapFunction;
   }
 
   /**
-   * @return {function}
+   * @return {function(R, T): R}
    */
   get reduceFunction() {
     return this.#reduceFunction;
   }
 
   /**
-   * @return {object}
+   * @return {R}
    */
   get reduceAccumulator() {
     return this.#reduceAccumulator;
@@ -105,7 +114,6 @@ class Query {
   }
 
   /**
-   * @private
    * @return {bool}
    */
   #rootsIsValid() {
@@ -114,7 +122,6 @@ class Query {
   }
 
   /**
-   * @private
    * @return {bool}
    */
   #filterIsValid() {
@@ -122,7 +129,6 @@ class Query {
   }
 
   /**
-   * @private
    * @return {bool}
    */
   #mapIsValid() {
@@ -130,7 +136,6 @@ class Query {
   }
 
   /**
-   * @private
    * @return {bool}
    */
   #reduceIsValid() {
