@@ -1,6 +1,6 @@
 {
   "name": "@zkud/fs-find",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Flexible search of file content",
   "main": "index.js",
   "keywords": [
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zkud/fs-find.git"
+    "url": "https://github.com/zkud/fs-find.git"
   },
   "author": "zkud",
   "license": "MIT",
