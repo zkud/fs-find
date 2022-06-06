@@ -2,6 +2,7 @@ const {RegexSearcher} = require('../..').regex;
 const {MockFileSystem} = require('../helpers');
 
 let searcher;
+const jsFile = /^(?!.*\.test\.js$).*\.js$/;
 
 describe('RegexSearcher tests', () => {
   beforeEach(() => {
@@ -11,7 +12,7 @@ describe('RegexSearcher tests', () => {
   describe('On findMatches', () => {
     test('It searches', async () => {
       const results = await searcher
-          .findMatches('./src/', /(.|\s)+[.]js/, /class/g);
+          .findMatches('./src/', jsFile, /class/g);
 
       expect(results).toStrictEqual([
         ['class'],
@@ -27,11 +28,11 @@ describe('RegexSearcher tests', () => {
   describe('On countMatches', () => {
     test('It counts correctly', async () => {
       let count = await searcher
-          .countMatches('./src/', /(.|\s)+[.]js/, /class/g);
+          .countMatches('./src/', jsFile, /class/g);
       expect(count).toStrictEqual(6);
 
       count = await searcher
-          .countMatches('./src/', /(.|\s)+[.]js/, /Test1/g);
+          .countMatches('./src/', jsFile, /Test1/g);
       expect(count).toStrictEqual(4);
     });
   });
@@ -39,9 +40,9 @@ describe('RegexSearcher tests', () => {
   describe('On testMatches', () => {
     test('It determinates correctly', async () => {
       const classIsPresent = await searcher
-          .testMatches('./src/', /(.|\s)+[.]js/, /class/g);
+          .testMatches('./src/', jsFile, /class/g);
       const functionIsPresent = await searcher
-          .testMatches('./src/', /(.|\s)+[.]js/, /function/g);
+          .testMatches('./src/', jsFile, /function/g);
 
       expect(classIsPresent).toBeTruthy();
       expect(functionIsPresent).toBeFalsy();
