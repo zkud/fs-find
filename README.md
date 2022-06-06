@@ -48,7 +48,7 @@ $ npm install @zkud/fs-find
   * [Repo](https://github.com/zkud/fs-find)
   * Visit the [Wiki](https://github.com/zkud/fs-find/wiki)
 
-### Security Issues
+## Security Issues
 
 If you discover a security vulnerability, please see [Security Policies and Procedures](Security.md).
 
