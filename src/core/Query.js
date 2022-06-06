@@ -24,7 +24,7 @@ class Query {
 
   /**
    * Provides a search source
-   * @param {string} path
+   * @param {string|Array<string>} path
    * @return {Query<T, R>}
    */
   from(path) {
@@ -109,8 +109,7 @@ class Query {
   isValid() {
     return this.#rootsIsValid() &&
       this.#filterIsValid() &&
-      this.#mapIsValid() &&
-      this.#reduceIsValid();
+      this.#mapIsValid();
   }
 
   /**
@@ -138,21 +137,8 @@ class Query {
   /**
    * @return {bool}
    */
-  #reduceIsValid() {
-    if (this.#reduceFunction && this.#reduceAccumulator) {
-      return true;
-    }
-    if (!this.#reduceFunction && !this.#reduceAccumulator) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * @return {bool}
-   */
   requiresReduce() {
-    return this.#reduceFunction && this.#reduceAccumulator;
+    return this.#reduceFunction;
   }
 }
 
