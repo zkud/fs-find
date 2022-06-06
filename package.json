@@ -1,6 +1,6 @@
 {
   "name": "@zkud/fs-find",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Flexible search of file content",
   "main": "index.js",
   "keywords": [
