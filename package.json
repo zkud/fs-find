@@ -1,8 +1,5 @@
 {
   "name": "@zkud/fs-find",
-  "publishConfig": {
-    "@zkud:registry": "https://npm.pkg.github.com"
-  },
   "version": "0.0.1",
   "description": "Flexible search of file content",
   "main": "index.js",
