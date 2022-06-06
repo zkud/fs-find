@@ -1,6 +1,9 @@
 {
-  "name": "fs-find",
-  "version": "1.0.0",
+  "name": "@zkud/fs-find",
+  "publishConfig": {
+    "@zkud:registry": "https://npm.pkg.github.com"
+  },
+  "version": "0.0.1",
   "description": "Flexible search of file content",
   "main": "index.js",
   "keywords": [
@@ -17,6 +20,14 @@
     "lint": "npx eslint ./",
     "test": "jest --coverage"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zkud/fs-find.git"
+  },
   "author": "zkud",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zkud/fs-find/issues"
+  },
+  "homepage": "https://github.com/zkud/fs-find#readme"
 }
