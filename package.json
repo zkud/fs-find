@@ -8,6 +8,9 @@
     "search",
     "utility"
   ],
+  "dependencies": {
+    "lru-cache": "^7.10.1"
+  },
   "devDependencies": {
     "eslint": "^8.16.0",
     "eslint-config-google": "^0.14.0",
