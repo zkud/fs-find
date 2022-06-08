@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const Entry = require('./Entry');
+const Entry = require('../').Entry;
 
 /**
  * Search Query in the File System

@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 const Query = require('./Query');
-const FileSystem = require('./FileSystem');
+const FileSystem = require('../').FileSystem;
 const SearchError = require('./SearchError');
 // eslint-disable-next-line no-unused-vars
-const Entry = require('./Entry');
+const Entry = require('../').Entry;
 
 /**
  * Searches in the File System with query
