@@ -6,4 +6,3 @@ declare class Searcher {
 }
 import Query = require("./Query");
 import { FileSystem } from "../fs";
-//# sourceMappingURL=Searcher.d.ts.map

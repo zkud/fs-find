@@ -8,4 +8,3 @@ export = _exports;
 import cache = require("./cache");
 import Entry = require("./Entry");
 import FileSystem = require("./FileSystem");
-//# sourceMappingURL=index.d.ts.map

@@ -5,4 +5,3 @@ declare class RegexSearcher extends Searcher {
     testMatches(source: string | string[], pathPattern: RegExp, contentPattern: RegExp): boolean;
 }
 import { Searcher } from "../core/search";
-//# sourceMappingURL=RegexSearcher.d.ts.map

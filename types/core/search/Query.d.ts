@@ -13,4 +13,3 @@ declare class Query<T = any, R = any> {
     requiresReduce(): boolean;
     #private;
 }
-//# sourceMappingURL=Query.d.ts.map

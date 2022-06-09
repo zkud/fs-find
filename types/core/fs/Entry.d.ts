@@ -6,4 +6,3 @@ declare class Entry {
     get isDirectory(): boolean;
     #private;
 }
-//# sourceMappingURL=Entry.d.ts.map

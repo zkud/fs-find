@@ -1,7 +1,5 @@
 {
   "extends": "@definitelytyped/dtslint/dtslint.json",
   "rules": {
-    "comment-format": false,
-    "eofline": false
   }
 }

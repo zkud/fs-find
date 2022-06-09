@@ -9,4 +9,3 @@ declare const _exports: {
 };
 export = _exports;
 import search = require("./search");
-//# sourceMappingURL=index.d.ts.map

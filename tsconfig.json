@@ -6,11 +6,6 @@
     "emitDeclarationOnly": true,
     "outDir": "types",
     "declarationMap": true,
-    "removeComments": true,
-    "plugins": [
-      {
-        "name": "typescript-eslint-language-service"
-      }
-    ]
+    "removeComments": true
   }
 }
