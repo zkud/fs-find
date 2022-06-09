@@ -2,9 +2,12 @@
 Flexible search of file content
 
 [![Hits-of-Code](https://hitsofcode.com/github/zkud/fs-find?branch=main)](https://hitsofcode.com/github/zkud/fs-find/view?branch=main)
+[![CI](https://github.com/zkud/fs-find/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/zkud/fs-find/actions/workflows/ci.yml)
+[![Code QL](https://github.com/zkud/fs-find/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/zkud/fs-find/actions/workflows/codeql-analysis.yml)
 
 ```js
-const {Searcher, Query} = require('@zkud/fs-find').core;
+const {core} = require('@zkud/fs-find');
+const {Searcher, Query} = core;
 
 const searcher = new Searcher();
 const results = await searcher.search(
