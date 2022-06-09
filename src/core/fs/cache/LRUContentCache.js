@@ -10,7 +10,7 @@ class LRUContentCache extends ContentCache {
   #cache;
 
   /**
-   * @param {number} maxMemorySize
+   * @param {number} [maxMemorySize]
    */
   constructor(maxMemorySize = ONE_GBYTE) {
     super();

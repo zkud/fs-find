@@ -2,7 +2,8 @@
   "name": "@zkud/fs-find",
   "version": "0.0.5",
   "description": "Flexible search of file content",
-  "main": "index.js",
+  "main": "src/index.js",
+  "types": "types/indes.d.ts",
   "keywords": [
     "fs",
     "search",
@@ -12,14 +13,17 @@
     "lru-cache": "^7.10.1"
   },
   "devDependencies": {
-    "eslint": "^8.16.0",
+    "@definitelytyped/dtslint": "^0.0.112",
+    "eslint": "^8.17.0",
     "eslint-config-google": "^0.14.0",
     "jest": "^28.1.1",
     "typescript": "^4.7.3"
   },
   "scripts": {
     "lint": "npx eslint ./",
-    "test": "jest --coverage"
+    "unit-test": "jest --coverage",
+    "build-types": "npx -p typescript tsc",
+    "lint-types": "dtslint types"
   },
   "repository": {
     "type": "git",

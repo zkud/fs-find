@@ -1,10 +1,16 @@
 {
-  "include": ["./**.js"],
+  "include": ["src/**/*"],
   "compilerOptions": {
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "dist",
-    "declarationMap": true
+    "outDir": "types",
+    "declarationMap": true,
+    "removeComments": true,
+    "plugins": [
+      {
+        "name": "typescript-eslint-language-service"
+      }
+    ]
   }
 }

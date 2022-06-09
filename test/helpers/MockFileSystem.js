@@ -1,4 +1,5 @@
-const {FileSystem, Entry} = require('../../').core;
+const {core} = require('../..');
+const {FileSystem, Entry} = core;
 
 const mockFSStructure = {
   './src/': [

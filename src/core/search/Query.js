@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const Entry = require('../').Entry;
+const {Entry} = require('../fs');
 
 /**
  * Search Query in the File System
@@ -24,7 +24,7 @@ class Query {
 
   /**
    * Provides a search source
-   * @param {string|Array<string>} path
+   * @param {string|string[]} path
    * @return {Query<T, R>}
    */
   from(path) {
@@ -69,7 +69,7 @@ class Query {
   }
 
   /**
-   * @return {Array<string>}
+   * @return {string[]}
    */
   get roots() {
     return this.#roots;
