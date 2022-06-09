@@ -4,7 +4,7 @@
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "types",
+    "outDir": "dist",
     "declarationMap": true,
     "removeComments": true
   }
