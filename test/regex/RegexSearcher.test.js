@@ -1,5 +1,7 @@
-const {RegexSearcher} = require('../..').regex;
+const {regex} = require('../..');
 const {MockFileSystem} = require('../helpers');
+
+const {RegexSearcher} = regex;
 
 let searcher;
 const jsFile = /^(?!.*\.test\.js$).*\.js$/;

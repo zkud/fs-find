@@ -1,4 +1,5 @@
-const {Query} = require('../..').core;
+const {core} = require('../..');
+const {Query} = core;
 
 describe('Query tests', () => {
   describe('With default args', () => {

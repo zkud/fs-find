@@ -8,7 +8,7 @@ class Entry {
   /**
    * Creates a new Entry
    * @param {string} path
-   * @param {bool} isFile
+   * @param {boolean} isFile
    */
   constructor(path, isFile) {
     this.#path = path;
@@ -23,14 +23,14 @@ class Entry {
   }
 
   /**
-   * @return {bool}
+   * @return {boolean}
    */
   get isFile() {
     return this.#isFile;
   }
 
   /**
-   * @return {bool}
+   * @return {boolean}
    */
   get isDirectory() {
     return !this.#isFile;

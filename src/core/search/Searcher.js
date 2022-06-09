@@ -1,9 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 const Query = require('./Query');
-const FileSystem = require('../').FileSystem;
 const SearchError = require('./SearchError');
 // eslint-disable-next-line no-unused-vars
-const Entry = require('../').Entry;
+const {FileSystem, Entry} = require('../fs');
 
 /**
  * Searches in the File System with query
@@ -12,7 +11,7 @@ class Searcher {
   #fs;
 
   /**
-   * @param {FileSystem} fs
+   * @param {FileSystem} [fs]
    */
   constructor(fs = new FileSystem()) {
     this.#fs = fs;
@@ -56,7 +55,7 @@ class Searcher {
    * @template [T=object]
    * @template [R=object]
    * @param {Query<T, R>} query
-   * @return {Promise<Array<T>>}
+   * @return {Promise<T[]>}
    */
   async #searchInDirectory(path, query) {
     const entries = await this.#fs.getDirectoryEntries(path);
@@ -71,11 +70,11 @@ class Searcher {
   }
 
   /**
-   * @param {Array<Entry>} entries
+   * @param {Entry[]} entries
    * @template [T=object]
    * @template [R=object]
    * @param {Query<T, R>} query
-   * @return {Promise<Array<T>>}
+   * @return {Promise<T[]>}
    */
   async #searchInSubDirectories(entries, query) {
     entries = entries
@@ -86,11 +85,11 @@ class Searcher {
   }
 
   /**
-   * @param {Array<Entry>} entries
+   * @param {Entry[]} entries
    * @template [T=object]
    * @template [R=object]
    * @param {Query<T, R>} query
-   * @return {Promise<Array<T>>}
+   * @return {Promise<T[]>}
    */
   async #searchInFiles(entries, query) {
     entries = entries
@@ -105,7 +104,7 @@ class Searcher {
    * @template [T=object]
    * @template [R=object]
    * @param {Query<T, R>} query
-   * @return {Promise<Array<T>>}
+   * @return {Promise<T[]>}
    */
   async #searchInFile(path, {mapFunction}) {
     const content = await this.#fs.readFile(path);
@@ -113,7 +112,7 @@ class Searcher {
   }
 
   /**
-   * @param {Array<T>} results
+   * @param {T[]} results
    * @template [T=object]
    * @template [R=object]
    * @param {Query<T, R>} query

@@ -1,5 +1,7 @@
-const {FileSystem, Entry, LRUContentCache} = require('../..').core;
+const {core} = require('../..');
 const fs = require('fs').promises;
+
+const {FileSystem, Entry, LRUContentCache} = core;
 
 jest.mock('fs', () => ({
   promises: {
