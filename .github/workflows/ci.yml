@@ -14,6 +14,10 @@ jobs:
         cache: 'npm'
     - run: npm i    
     - run: npm run unit-test
+    - name: Upload to codecov.io
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
 
   lint:
     runs-on: ubuntu-latest
