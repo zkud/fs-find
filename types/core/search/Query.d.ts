@@ -11,5 +11,4 @@ declare class Query<T = any, R = any> {
     get reduceAccumulator(): R;
     isValid(): boolean;
     requiresReduce(): boolean;
-    #private;
 }
