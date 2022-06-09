@@ -23,7 +23,7 @@ class RegexSearcher extends Searcher {
    * @param {string|Array<string>} source
    * @param {RegExp} pathPattern
    * @param {RegExp} contentPattern
-   * @return {bool} Count of matches
+   * @return {boolean} Count of matches
    */
   async countMatches(source, pathPattern, contentPattern) {
     return this.search(
@@ -39,7 +39,7 @@ class RegexSearcher extends Searcher {
    * @param {string|Array<string>} source
    * @param {RegExp} pathPattern
    * @param {RegExp} contentPattern
-   * @return {bool} Match is present
+   * @return {boolean} Match is present
    */
   async testMatches(source, pathPattern, contentPattern) {
     return this.search(

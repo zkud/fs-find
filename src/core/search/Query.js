@@ -38,7 +38,7 @@ class Query {
 
   /**
    * Provides a filter criteria for files
-   * @param {function(Entry): bool} fun
+   * @param {function(Entry): boolean} fun
    * @return {Query<T, R>}
    */
   filterBy(fun) {
@@ -76,7 +76,7 @@ class Query {
   }
 
   /**
-   * @return {function(Entry): bool}
+   * @return {function(Entry): boolean}
    */
   get filterFunction() {
     return this.#filterFunction;
@@ -104,7 +104,7 @@ class Query {
   }
 
   /**
-   * @return {bool}
+   * @return {boolean}
    */
   isValid() {
     return this.#rootsIsValid() &&
@@ -113,7 +113,7 @@ class Query {
   }
 
   /**
-   * @return {bool}
+   * @return {boolean}
    */
   #rootsIsValid() {
     return Array.isArray(this.#roots) &&
@@ -121,21 +121,21 @@ class Query {
   }
 
   /**
-   * @return {bool}
+   * @return {boolean}
    */
   #filterIsValid() {
     return typeof this.#filterFunction === 'function';
   }
 
   /**
-   * @return {bool}
+   * @return {boolean}
    */
   #mapIsValid() {
     return typeof this.#mapFunction === 'function';
   }
 
   /**
-   * @return {bool}
+   * @return {boolean}
    */
   requiresReduce() {
     return this.#reduceFunction;

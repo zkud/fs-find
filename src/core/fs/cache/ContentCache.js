@@ -8,7 +8,7 @@ class ContentCache {
   /**
    * @abstract
    * @param {number} capacity Required capacity to store the content
-   * @return {bool}
+   * @return {boolean}
    */
   hasEnougthCapacity(capacity) {
     return true;
@@ -17,7 +17,7 @@ class ContentCache {
   /**
    * @abstract
    * @param {string} path Absolute path to the file
-   * @return {bool} Whether the file exists in the cache
+   * @return {boolean} Whether the file exists in the cache
    */
   has(path) {
     return false;
