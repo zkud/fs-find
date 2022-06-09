@@ -4,6 +4,7 @@ Flexible search of file content
 [![Hits-of-Code](https://hitsofcode.com/github/zkud/fs-find?branch=main)](https://hitsofcode.com/github/zkud/fs-find/view?branch=main)
 [![CI](https://github.com/zkud/fs-find/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/zkud/fs-find/actions/workflows/ci.yml)
 [![Code QL](https://github.com/zkud/fs-find/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/zkud/fs-find/actions/workflows/codeql-analysis.yml)
+[![codecov](https://codecov.io/gh/zkud/fs-find/branch/main/graph/badge.svg?token=CD7H6DBDQ2)](https://codecov.io/gh/zkud/fs-find)
 
 ```js
 const {core} = require('@zkud/fs-find');

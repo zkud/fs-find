@@ -5,6 +5,5 @@ declare class LRUContentCache extends ContentCache {
     has(path: string): boolean;
     set(path: string, content: string): void;
     get(path: string): string;
-    #private;
 }
 import ContentCache = require("./ContentCache");

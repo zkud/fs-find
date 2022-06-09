@@ -4,5 +4,4 @@ declare class Entry {
     get path(): string;
     get isFile(): boolean;
     get isDirectory(): boolean;
-    #private;
 }
