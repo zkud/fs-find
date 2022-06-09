@@ -4,11 +4,14 @@ const {Searcher, Query} = require('../core');
  * Searcher with regex possibilities
  */
 class RegexSearcher extends Searcher {
+  // Valid jsdoc, but invalid from eslint's point of view
+  // due to versions
+  // eslint-disable-next-line valid-jsdoc
   /**
-   * @param {string|Array<string>} source
+   * @param {string|string[]} source
    * @param {RegExp} pathPattern
    * @param {RegExp} contentPattern
-   * @return {Array<Array<string>>} regex matches
+   * @return {string[][]} regex matches
    */
   async findMatches(source, pathPattern, contentPattern) {
     return this.search(
@@ -20,10 +23,10 @@ class RegexSearcher extends Searcher {
   }
 
   /**
-   * @param {string|Array<string>} source
+   * @param {string|string[]} source
    * @param {RegExp} pathPattern
    * @param {RegExp} contentPattern
-   * @return {bool} Count of matches
+   * @return {boolean} Count of matches
    */
   async countMatches(source, pathPattern, contentPattern) {
     return this.search(
@@ -36,10 +39,10 @@ class RegexSearcher extends Searcher {
   }
 
   /**
-   * @param {string|Array<string>} source
+   * @param {string|string[]} source
    * @param {RegExp} pathPattern
    * @param {RegExp} contentPattern
-   * @return {bool} Match is present
+   * @return {boolean} Match is present
    */
   async testMatches(source, pathPattern, contentPattern) {
     return this.search(

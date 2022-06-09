@@ -1,5 +1,7 @@
-const {FileSystem, Entry} = require('../..').core;
+const {core} = require('../..');
 const fs = require('fs').promises;
+
+const {FileSystem, Entry, LRUContentCache} = core;
 
 jest.mock('fs', () => ({
   promises: {
@@ -42,6 +44,17 @@ describe('FileSystem tests', () => {
     const result = await system.readFile('./test.js');
 
     expect(fs.readFile).toBeCalledTimes(1);
+    expect(result).toBe('content');
+  });
+
+  test('On very big files it avoids caching', async () => {
+    const cache = new LRUContentCache(5);
+    const system = new FileSystem(cache);
+
+    await system.readFile('./test.js');
+    const result = await system.readFile('./test.js');
+
+    expect(fs.readFile).toBeCalledTimes(2);
     expect(result).toBe('content');
   });
 });

@@ -1,6 +1,8 @@
 const fs = require('fs').promises;
 const path = require('path');
 const Entry = require('./Entry');
+// eslint-disable-next-line no-unused-vars
+const {ContentCache, LRUContentCache} = require('./cache');
 
 /**
  * FS Wrapper
@@ -10,14 +12,15 @@ class FileSystem {
 
   /**
    * Creates a new FS instance
+   * @param {ContentCache} [cache] to use
    */
-  constructor() {
-    this.#contentsCache = new Map();
+  constructor(cache = new LRUContentCache()) {
+    this.#contentsCache = cache;
   }
 
   /**
    * @param {string} path
-   * @return {Promise<Array<Entry>>}
+   * @return {Promise<Entry[]>}
    */
   async getDirectoryEntries(path) {
     const entries = await fs.readdir(
@@ -52,7 +55,10 @@ class FileSystem {
         path,
         {encoding: 'utf8'},
     );
-    this.#contentsCache.set(path, content);
+
+    if (this.#contentsCache.hasEnougthCapacity(content.length)) {
+      this.#contentsCache.set(path, content);
+    }
 
     return content;
   }

@@ -1,5 +1,6 @@
-const {Searcher, Query, SearchError} = require('../..').core;
+const {core} = require('../..');
 const {MockFileSystem} = require('../helpers');
+const {Searcher, Query, SearchError} = core;
 
 let searcher;
 
