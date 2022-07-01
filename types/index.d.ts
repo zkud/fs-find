@@ -1,3 +1,3 @@
-import core = require("./core");
-import regex = require("./regex");
+import core = require('./core');
+import regex = require('./regex');
 export { core, regex };

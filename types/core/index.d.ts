@@ -1,11 +1,13 @@
-declare const _exports: {
-    Query: typeof search.Query;
-    Searcher: typeof search.Searcher;
-    SearchError: typeof search.SearchError;
-    ContentCache: typeof import("./fs/cache/ContentCache");
-    LRUContentCache: typeof import("./fs/cache/LRUContentCache");
-    Entry: typeof import("./fs/Entry");
-    FileSystem: typeof import("./fs/FileSystem");
+import { Query, Searcher, SearchError } from './search';
+import { ContentCache, LRUContentCache, Entry, FileSystem, FileMetaInfo } from './fs';
+
+export {
+  Query,
+  Searcher,
+  SearchError,
+  ContentCache,
+  LRUContentCache,
+  Entry,
+  FileSystem,
+  FileMetaInfo,
 };
-export = _exports;
-import search = require("./search");

@@ -2,7 +2,7 @@
 const Query = require('./Query');
 const SearchError = require('./SearchError');
 // eslint-disable-next-line no-unused-vars
-const {FileSystem, Entry} = require('../fs');
+const {FileSystem, Entry, FileMetaInfo} = require('../fs');
 
 /**
  * Searches in the File System with query
@@ -92,11 +92,45 @@ class Searcher {
    * @return {Promise<T[]>}
    */
   async #searchInFiles(entries, query) {
-    entries = entries
-        .filter((entry) => entry.isFile)
-        .filter((entry) => query.filterFunction(entry))
-        .map((entry) => this.#searchInFile(entry.path, query));
-    return Promise.all(entries);
+    let files = entries.filter((entry) => entry.isFile);
+
+    files = await this.#optionalyAppendMetaInfoToFiles(files, query);
+
+    files = files
+        .filter((properties) => query.filterFunction(...properties))
+        .map(([entry, info]) => this.#searchInFile(entry.path, query, info));
+
+    return Promise.all(files);
+  }
+
+  /**
+   * @param {Entry[]} files
+   * @template [T=object]
+   * @template [R=object]
+   * @param {Query<T, R>} query
+   * @return {Promise<([Entry]|[Entry, FileMetaInfo])[]>}
+   */
+  async #optionalyAppendMetaInfoToFiles(files, query) {
+    files = files.map((entry) => [entry]);
+
+    if (query.requiresMetaInfo()) {
+      files = files.map(([entry]) =>
+        this.#appendMetaInfoToFileProperties(entry.path, [entry]),
+      );
+      files = await Promise.all(files);
+    }
+
+    return files;
+  }
+
+  /**
+   * @param {string} path
+   * @param {object[]} properties
+   * @return {Promise<object[]>}
+   */
+  async #appendMetaInfoToFileProperties(path, properties) {
+    const info = await this.#fs.getMetaInfo(path);
+    return Promise.all([...properties, info]);
   }
 
   /**
@@ -104,11 +138,12 @@ class Searcher {
    * @template [T=object]
    * @template [R=object]
    * @param {Query<T, R>} query
-   * @return {Promise<T[]>}
+   * @param {FileMetaInfo} [info]
+   * @return {Promise<T>}
    */
-  async #searchInFile(path, {mapFunction}) {
+  async #searchInFile(path, query, info) {
     const content = await this.#fs.readFile(path);
-    return mapFunction(content);
+    return query.mapFunction(content, info);
   }
 
   /**

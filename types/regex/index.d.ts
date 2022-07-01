@@ -1,2 +1,2 @@
 export { RegexSearcher };
-import RegexSearcher = require("./RegexSearcher");
+import RegexSearcher = require('./RegexSearcher');

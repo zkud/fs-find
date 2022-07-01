@@ -1,7 +1,7 @@
 const {core} = require('../..');
 const fs = require('fs').promises;
 
-const {FileSystem, Entry, LRUContentCache} = core;
+const {FileSystem, Entry, LRUContentCache, FileMetaInfo} = core;
 
 jest.mock('fs', () => ({
   promises: {
@@ -17,6 +17,7 @@ jest.mock('fs', () => ({
       },
     ],
     readFile: jest.fn(() => 'content'),
+    stat: jest.fn(() => 'stats'),
   },
 }));
 
@@ -56,5 +57,14 @@ describe('FileSystem tests', () => {
 
     expect(fs.readFile).toBeCalledTimes(2);
     expect(result).toBe('content');
+  });
+
+  test('On stats request it returns stats', async () => {
+    const system = new FileSystem();
+
+    const result = await system.getMetaInfo('./test.js');
+
+    expect(fs.stat).toBeCalledTimes(1);
+    expect(result).toStrictEqual(new FileMetaInfo('./test.js', 'stats'));
   });
 });

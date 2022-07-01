@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const Entry = require('./Entry');
+const FileMetaInfo = require('./FileMetaInfo');
 // eslint-disable-next-line no-unused-vars
 const {ContentCache, LRUContentCache} = require('./cache');
 
@@ -61,6 +62,15 @@ class FileSystem {
     }
 
     return content;
+  }
+
+  /**
+   * @param {string} path
+   * @return {Promise<FileMetaInfo>} FileMetaInfo object for a file
+   */
+  async getMetaInfo(path) {
+    const stats = await fs.stat(path);
+    return new FileMetaInfo(path, stats);
   }
 }
 

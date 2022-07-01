@@ -29,6 +29,33 @@ describe('Searcher tests', () => {
     });
   });
 
+  describe('With a correct query with usage of the meta info', () => {
+    test('It searches', async () => {
+      const results = await searcher.search(
+          new Query()
+              .from('./src/')
+              .filterBy(({path}, {createdAt}) => path.endsWith('.js') &&
+                createdAt > new Date('2000-01-01'),
+              )
+              .mapAs((content, {size}) => {
+                if (size > 1000) {
+                  return [];
+                }
+                return content.match(/class/g);
+              }),
+      );
+
+      expect(results).toStrictEqual([
+        ['class'],
+        ['class'],
+        ['class'],
+        ['class'],
+        ['class'],
+        ['class'],
+      ]);
+    });
+  });
+
   describe('With an invalid query', () => {
     test('It throws error', async () => {
       expect(async () => {

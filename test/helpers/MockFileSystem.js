@@ -1,5 +1,5 @@
 const {core} = require('../..');
-const {FileSystem, Entry} = core;
+const {FileSystem, Entry, FileMetaInfo} = core;
 
 const mockFSStructure = {
   './src/': [
@@ -50,6 +50,20 @@ class MockFileSystem extends FileSystem {
    */
   readFile(path) {
     return this.#structure[path];
+  }
+
+  /**
+   * @override
+   */
+  getMetaInfo(path) {
+    const now = new Date();
+    const stats = {
+      size: this.#structure[path].length,
+      birthtime: now,
+      mtime: now,
+      atime: now,
+    };
+    return new FileMetaInfo(path, stats);
   }
 }
 

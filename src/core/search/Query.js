@@ -1,5 +1,14 @@
 // eslint-disable-next-line no-unused-vars
-const {Entry} = require('../fs');
+const {Entry, FileMetaInfo} = require('../fs');
+
+/**
+ * @typedef {function(Entry, FileMetaInfo): boolean} FilterFunction
+ * @template [T=object]
+ * @typedef {function(string, FileMetaInfo): T} MapFunction<T>
+ * @template [T=object]
+ * @template [R=object]
+ * @typedef {function(R, T): R} ReduceFunction<T, R>
+ */
 
 /**
  * Search Query in the File System
@@ -38,7 +47,7 @@ class Query {
 
   /**
    * Provides a filter criteria for files
-   * @param {function(Entry): boolean} fun
+   * @param {FilterFunction} fun
    * @return {Query<T, R>}
    */
   filterBy(fun) {
@@ -48,7 +57,7 @@ class Query {
 
   /**
    * Provides a function to apply to each file
-   * @param {function(string): T} fun
+   * @param {MapFunction<T>} fun
    * @return {Query<T, R>}
    */
   mapAs(fun) {
@@ -58,7 +67,7 @@ class Query {
 
   /**
    * Provide a function to reduce all search results into a single value
-   * @param {function(R, T): R} fun
+   * @param {ReduceFunction<T, R>} fun
    * @param {R} accumulator
    * @return {Query<T, R>}
    */
@@ -76,21 +85,21 @@ class Query {
   }
 
   /**
-   * @return {function(Entry): boolean}
+   * @return {FilterFunction}
    */
   get filterFunction() {
     return this.#filterFunction;
   }
 
   /**
-   * @return {function(string): T}
+   * @return {MapFunction<T>}
    */
   get mapFunction() {
     return this.#mapFunction;
   }
 
   /**
-   * @return {function(R, T): R}
+   * @return {ReduceFunction<T, R>}
    */
   get reduceFunction() {
     return this.#reduceFunction;
@@ -132,6 +141,28 @@ class Query {
    */
   #mapIsValid() {
     return typeof this.#mapFunction === 'function';
+  }
+
+  /**
+   * @return {boolean}
+   */
+  requiresMetaInfo() {
+    return this.filterFunctionRequiresMetaInfo() ||
+        this.mapFunctionRequiresMetaInfo();
+  }
+
+  /**
+   * @return {boolean}
+   */
+  filterFunctionRequiresMetaInfo() {
+    return this.#filterFunction.length >= 2;
+  }
+
+  /**
+   * @return {boolean}
+   */
+  mapFunctionRequiresMetaInfo() {
+    return this.#mapFunction.length >= 2;
   }
 
   /**
