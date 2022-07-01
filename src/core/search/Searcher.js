@@ -106,18 +106,18 @@ class Searcher {
    * @param {Query<T, R>} query
    * @return {Promise<T>}
    */
-  async #searchInFile(path, {mapFunction}) {
+  async #searchInFile(path, query) {
     const content = this.#fs.readFile(path);
 
-    if (mapFunction.length === 2) {
+    if (query.mapFunctionRequiresMetaInfo) {
       const args = await Promise.all([
         content,
         this.#fs.getMetaInfo(path),
       ]);
-      return mapFunction(...args);
+      return query.mapFunction(...args);
     }
 
-    return mapFunction(await content);
+    return query.mapFunction(await content);
   }
 
   /**

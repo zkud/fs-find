@@ -38,7 +38,10 @@ class Query {
 
   /**
    * Provides a filter criteria for files
-   * @param {function(Entry): boolean} fun
+   * @param {
+   *  function(Entry): boolean
+   *  | function(Entry, FileMetaInfo): boolean
+   * } fun
    * @return {Query<T, R>}
    */
   filterBy(fun) {
@@ -48,7 +51,7 @@ class Query {
 
   /**
    * Provides a function to apply to each file
-   * @param {function(string): T | function(string, FileMetaInfo): T } fun
+   * @param {function(string): T | function(string, FileMetaInfo): T} fun
    * @return {Query<T, R>}
    */
   mapAs(fun) {
@@ -83,10 +86,17 @@ class Query {
   }
 
   /**
-   * @return {function(string): T}
+   * @return {function(string): T | function(string, FileMetaInfo): T}
    */
   get mapFunction() {
     return this.#mapFunction;
+  }
+
+  /**
+   * @return {boolean}
+   */
+  get mapFunctionRequiresMetaInfo() {
+    return this.#mapFunction.length >= 2;
   }
 
   /**
