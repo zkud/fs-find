@@ -15,7 +15,7 @@ jobs:
     - run: npm i    
     - run: npm run unit-test
     - name: Upload to codecov.io
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         token: ${{secrets.CODECOV_TOKEN}}
         flags: unittests
