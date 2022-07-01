@@ -38,10 +38,8 @@ class Query {
 
   /**
    * Provides a filter criteria for files
-   * @param {
-   *  function(Entry): boolean
-   *  | function(Entry, FileMetaInfo): boolean
-   * } fun
+   * @param {function(Entry): boolean | function(Entry, FileMetaInfo): boolean}
+   * fun
    * @return {Query<T, R>}
    */
   filterBy(fun) {

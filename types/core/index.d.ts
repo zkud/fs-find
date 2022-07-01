@@ -6,6 +6,7 @@ declare const _exports: {
     LRUContentCache: typeof import("./fs/cache/LRUContentCache");
     Entry: typeof import("./fs/Entry");
     FileSystem: typeof import("./fs/FileSystem");
+    FileMetaInfo: typeof import("./fs/FileMetaInfo");
 };
 export = _exports;
 import search = require("./search");

@@ -10,7 +10,8 @@
     "utility"
   ],
   "dependencies": {
-    "lru-cache": "^7"
+    "lru-cache": "^7",
+    "@types/node": "^18"
   },
   "devDependencies": {
     "eslint": "^8",
