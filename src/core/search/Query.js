@@ -86,6 +86,13 @@ class Query {
   }
 
   /**
+   * @return {boolean}
+   */
+  get filterFunctionRequiresMetaInfo() {
+    return this.#filterFunction.length >= 2;
+  }
+
+  /**
    * @return {function(string): T | function(string, FileMetaInfo): T}
    */
   get mapFunction() {

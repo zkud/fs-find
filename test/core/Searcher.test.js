@@ -34,7 +34,9 @@ describe('Searcher tests', () => {
       const results = await searcher.search(
           new Query()
               .from('./src/')
-              .filterBy(({path}) => path.endsWith('.js'))
+              .filterBy(({path}, {createdAt}) => path.endsWith('.js') &&
+                createdAt > new Date('2000-01-01'),
+              )
               .mapAs((content, {size}) => {
                 if (size > 1000) {
                   return [];

@@ -92,11 +92,26 @@ class Searcher {
    * @return {Promise<T[]>}
    */
   async #searchInFiles(entries, query) {
-    entries = entries
+    let files = entries
         .filter((entry) => entry.isFile)
-        .filter((entry) => query.filterFunction(entry))
-        .map((entry) => this.#searchInFile(entry.path, query));
-    return Promise.all(entries);
+        .map((entry) => [entry]);
+
+    if (query.filterFunctionRequiresMetaInfo) {
+      files = files.map(
+          ([entry]) => Promise.all([
+            entry,
+            this.#fs.getMetaInfo(entry.path),
+          ]),
+      );
+
+      files = await Promise.all(files);
+    }
+
+    files = files
+        .filter((args) => query.filterFunction(...args))
+        .map(([entry]) => this.#searchInFile(entry.path, query));
+
+    return Promise.all(files);
   }
 
   /**
