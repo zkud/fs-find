@@ -16,10 +16,15 @@ const {Entry, FileMetaInfo} = require('../fs');
  * @template [R=object]
  */
 class Query {
+  /** @private */
   #roots;
+  /** @private */
   #filterFunction;
+  /** @private */
   #mapFunction;
+  /** @private */
   #reduceFunction;
+  /** @private */
   #reduceAccumulator;
 
   /**
@@ -122,6 +127,7 @@ class Query {
   }
 
   /**
+   * @private
    * @return {boolean}
    */
   #rootsIsValid() {
@@ -130,6 +136,7 @@ class Query {
   }
 
   /**
+   * @private
    * @return {boolean}
    */
   #filterIsValid() {
@@ -137,6 +144,7 @@ class Query {
   }
 
   /**
+   * @private
    * @return {boolean}
    */
   #mapIsValid() {

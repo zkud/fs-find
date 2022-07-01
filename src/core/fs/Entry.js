@@ -2,7 +2,9 @@
  * File System entry
  */
 class Entry {
+  /** @private */
   #path;
+  /** @private */
   #isFile;
 
   /**

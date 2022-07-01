@@ -34,6 +34,7 @@ class FileSystem {
   }
 
   /**
+   * @private
    * @param {string} root
    * @param {fs.Dirent} entry
    * @return {Entry}
