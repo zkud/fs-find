@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const {Entry} = require('../fs');
+const {Entry, FileMetaInfo} = require('../fs');
 
 /**
  * Search Query in the File System
@@ -48,7 +48,7 @@ class Query {
 
   /**
    * Provides a function to apply to each file
-   * @param {function(string): T} fun
+   * @param {function(string): T | function(string, FileMetaInfo): T } fun
    * @return {Query<T, R>}
    */
   mapAs(fun) {
