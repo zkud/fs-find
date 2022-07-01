@@ -86,24 +86,10 @@ class Query {
   }
 
   /**
-   * @return {boolean}
-   */
-  get filterFunctionRequiresMetaInfo() {
-    return this.#filterFunction.length >= 2;
-  }
-
-  /**
    * @return {function(string): T | function(string, FileMetaInfo): T}
    */
   get mapFunction() {
     return this.#mapFunction;
-  }
-
-  /**
-   * @return {boolean}
-   */
-  get mapFunctionRequiresMetaInfo() {
-    return this.#mapFunction.length >= 2;
   }
 
   /**
@@ -149,6 +135,28 @@ class Query {
    */
   #mapIsValid() {
     return typeof this.#mapFunction === 'function';
+  }
+
+  /**
+   * @return {boolean}
+   */
+  requiresMetaInfo() {
+    return this.filterFunctionRequiresMetaInfo() ||
+        this.mapFunctionRequiresMetaInfo();
+  }
+
+  /**
+   * @return {boolean}
+   */
+  filterFunctionRequiresMetaInfo() {
+    return this.#filterFunction.length >= 2;
+  }
+
+  /**
+   * @return {boolean}
+   */
+  mapFunctionRequiresMetaInfo() {
+    return this.#mapFunction.length >= 2;
   }
 
   /**
