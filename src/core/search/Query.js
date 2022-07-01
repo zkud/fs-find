@@ -2,6 +2,15 @@
 const {Entry, FileMetaInfo} = require('../fs');
 
 /**
+ * @typedef {function(Entry, FileMetaInfo): boolean} FilterFunction
+ * @template [T=object]
+ * @typedef {function(string, FileMetaInfo): T} MapFunction<T>
+ * @template [T=object]
+ * @template [R=object]
+ * @typedef {function(R, T): R} ReduceFunction<T, R>
+ */
+
+/**
  * Search Query in the File System
  * @template [T=object]
  * @template [R=object]
@@ -38,8 +47,7 @@ class Query {
 
   /**
    * Provides a filter criteria for files
-   * @param {function(Entry): boolean | function(Entry, FileMetaInfo): boolean}
-   * fun
+   * @param {FilterFunction} fun
    * @return {Query<T, R>}
    */
   filterBy(fun) {
@@ -49,7 +57,7 @@ class Query {
 
   /**
    * Provides a function to apply to each file
-   * @param {function(string): T | function(string, FileMetaInfo): T} fun
+   * @param {MapFunction<T>} fun
    * @return {Query<T, R>}
    */
   mapAs(fun) {
@@ -59,7 +67,7 @@ class Query {
 
   /**
    * Provide a function to reduce all search results into a single value
-   * @param {function(R, T): R} fun
+   * @param {ReduceFunction<T, R>} fun
    * @param {R} accumulator
    * @return {Query<T, R>}
    */
@@ -77,21 +85,21 @@ class Query {
   }
 
   /**
-   * @return {function(Entry): boolean}
+   * @return {FilterFunction}
    */
   get filterFunction() {
     return this.#filterFunction;
   }
 
   /**
-   * @return {function(string): T | function(string, FileMetaInfo): T}
+   * @return {MapFunction<T>}
    */
   get mapFunction() {
     return this.#mapFunction;
   }
 
   /**
-   * @return {function(R, T): R}
+   * @return {ReduceFunction<T, R>}
    */
   get reduceFunction() {
     return this.#reduceFunction;
