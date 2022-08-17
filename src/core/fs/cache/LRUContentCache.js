@@ -7,6 +7,7 @@ const ONE_GBYTE = 1073741824;
  * LRU Cache wrapper
  */
 class LRUContentCache extends ContentCache {
+  /** @private */
   #cache;
 
   /**

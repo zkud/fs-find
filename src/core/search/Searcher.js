@@ -8,6 +8,7 @@ const {FileSystem, Entry, FileMetaInfo} = require('../fs');
  * Searches in the File System with query
  */
 class Searcher {
+  /** @private */
   #fs;
 
   /**
@@ -39,6 +40,7 @@ class Searcher {
   }
 
   /**
+   * @private
    * @template [T=object]
    * @template [R=object]
    * @param {Query<T, R>} query
@@ -51,6 +53,7 @@ class Searcher {
   }
 
   /**
+   * @private
    * @param {string} path
    * @template [T=object]
    * @template [R=object]
@@ -70,6 +73,7 @@ class Searcher {
   }
 
   /**
+   * @private
    * @param {Entry[]} entries
    * @template [T=object]
    * @template [R=object]
@@ -85,6 +89,7 @@ class Searcher {
   }
 
   /**
+   * @private
    * @param {Entry[]} entries
    * @template [T=object]
    * @template [R=object]
@@ -104,11 +109,12 @@ class Searcher {
   }
 
   /**
+   * @private
    * @param {Entry[]} files
    * @template [T=object]
    * @template [R=object]
    * @param {Query<T, R>} query
-   * @return {Promise<([Entry]|[Entry, FileMetaInfo])[]>}
+   * @return {Promise<Array<Array<object>>>}
    */
   async #optionalyAppendMetaInfoToFiles(files, query) {
     files = files.map((entry) => [entry]);
@@ -124,6 +130,7 @@ class Searcher {
   }
 
   /**
+   * @private
    * @param {string} path
    * @param {object[]} properties
    * @return {Promise<object[]>}
@@ -134,6 +141,7 @@ class Searcher {
   }
 
   /**
+   * @private
    * @param {string} path
    * @template [T=object]
    * @template [R=object]
@@ -147,6 +155,7 @@ class Searcher {
   }
 
   /**
+   * @private
    * @param {T[]} results
    * @template [T=object]
    * @template [R=object]

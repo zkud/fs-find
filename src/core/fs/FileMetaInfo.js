@@ -5,7 +5,9 @@ const fs = require('fs').promises;
  * File's meta information
  */
 class FileMetaInfo {
+  /** @private */
   #path;
+  /** @private */
   #stats;
 
   /**
