@@ -11,7 +11,7 @@
   ],
   "dependencies": {
     "lru-cache": "^7",
-    "@types/node": "^18"
+    "@types/node": "^20"
   },
   "devDependencies": {
     "eslint": "^8",
